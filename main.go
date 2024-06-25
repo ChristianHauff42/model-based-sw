@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // Example
 
@@ -262,12 +265,60 @@ func test_Dict() {
 	fmt.Printf("%d \n", x6)
 }
 
+
+
+func measureTime(fn func()) time.Duration {
+    start := time.Now()
+    for i := 0; i < 1000000; i++ {
+        fn()
+    }
+    return time.Since(start)
+}
+
+
+func iterationsRT(iterations int, r,s shape) {
+		for i := 0; i < iterations; i++ {
+	_ =	sumArea(r, s)
+	}
+}
+
+func iterationsDT(iterations int , rDictShape,sDictShape shape_Value) {
+for i := 0; i < iterations; i++ {
+		_ = sumArea_Dict(rDictShape, sDictShape)
+	}
+}
+
+
 func main() {
 
-	test()
+	//test()
+	//test_Lookup()
+	//test_Dict()
 
-	test_Lookup()
+	
+ var r rectangle = rectangle{1, 2}
+	var s square = square{3}
 
-	test_Dict()
+/***** Measuring normal runtime calculation *****/
+	rtTime := measureTime(func() {	iterationsRT(1000,r,s)})
+ fmt.Printf("rtTime: %v\n",rtTime)
 
+
+	/***** Measuring Dictionary calculation *****/
+ area_Rec_Wrapper := func(v interface{}) int {
+		return area_Rec(v.(rectangle))
+ }
+	
+	area_Sq_Wrapper := func(v interface{}) int {
+		return area_Sq(v.(square))
+ }
+	
+	//Directory Instances
+ rDictShape := shape_Value{r, area_Rec_Wrapper}
+ sDictShape := shape_Value{s, area_Sq_Wrapper}
+ 
+	dtTime := measureTime(func() {	iterationsDT(1000,rDictShape,sDictShape)})
+ fmt.Printf("dtTime: %v\n",dtTime)
+
+	
 }
