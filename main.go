@@ -410,14 +410,6 @@ func test_Dict() {
 	fmt.Printf("sumAreaVariant_Dict w/ rectangle: %d \n", x12) // should fail
 }
 
-func measureTime(fn func()) time.Duration {
-	start := time.Now()
-	for i := 0; i < 1000000; i++ {
-		fn()
-	}
-	return time.Since(start)
-}
-
 func iterationsRT(iterations int, r, s shape) {
 	for i := 0; i < iterations; i++ {
 		_ = sumArea(r, s)
@@ -467,28 +459,4 @@ func main() {
 
 	dtTime := measureTime(func() { iterationsDT(1000000000, rDictShape, sDictShape) })
 	fmt.Printf("dtTime: %v\n", dtTime)
-
-	var r rectangle = rectangle{1, 2}
-	var s square = square{3}
-
-	/***** Measuring normal runtime calculation *****/
-	rtTime := measureTime(func() { iterationsRT(1000, r, s) })
-	fmt.Printf("rtTime: %v\n", rtTime)
-
-	/***** Measuring Dictionary calculation *****/
-	area_Rec_Wrapper := func(v interface{}) int {
-		return area_Rec(v.(rectangle))
-	}
-
-	area_Sq_Wrapper := func(v interface{}) int {
-		return area_Sq(v.(square))
-	}
-
-	//Directory Instances
-	rDictShape := shape_Value{r, area_Rec_Wrapper}
-	sDictShape := shape_Value{s, area_Sq_Wrapper}
-
-	dtTime := measureTime(func() { iterationsDT(1000, rDictShape, sDictShape) })
-	fmt.Printf("dtTime: %v\n", dtTime)
-
 }
