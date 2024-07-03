@@ -138,31 +138,37 @@ func testTypeBound() {
 }
 
 func test() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("test \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	x1 := r.area() + s.area()
-	fmt.Printf("%d \n", x1)
+    fmt.Printf("sum of all areas: %d \n", x1)
 	x2 := sumArea(r, s)
-	fmt.Printf("%d \n", x2)
+    fmt.Printf("sumArea: %d \n", x2)
 	pt := &r
 	x3 := pt.area()
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("pt.area: %d \n", x3)
 	x4 := sumAreaScaleBefore(3, &r, &s)
-	fmt.Printf("%d \n", x4)
+    fmt.Printf("sumAreaScaleBefore: %d \n", x4)
 }
 
 func testNewShape() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("testNewShape \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var c circle = circle{3}
 	x1 := r.area() + c.area()
-	fmt.Printf("%d \n", x1)
+    fmt.Printf("Sum of rectangle and circle: %d \n", x1)
 	x2 := sumArea(r, c)
-	fmt.Printf("%d \n", x2)
+    fmt.Printf("sumArea: %d \n", x2)
 	pt := &r
 	x3 := pt.area()
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("pt.area: %d \n", x3)
 	x4 := sumAreaScaleBefore(3, &r, &c)
-	fmt.Printf("%d \n", x4)
+    fmt.Printf("sumAreaScaleBefore: %d \n", x4)
 }
 
 // Introducing unique function names for overloaded methods
@@ -243,15 +249,22 @@ func sumAreaVariant_Lookup(x, y interface{}) int {
 // expanded with circle example (task 2)
 // expanded with demonstration of type assertions (task 3)
 func test_Lookup() {
+  fmt.Printf("---------- \n")
+  fmt.Printf("test_Lookup \n")
+  fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	var c circle = circle{3}
 	x1 := area_Rec(r) + area_Sq(s) + area_Circle(c)
-	fmt.Printf("%d \n", x1)
+	fmt.Printf("Sum of all areas: %d \n", x1)
 	x2 := sumArea_Lookup(r, s)
-	fmt.Printf("%d \n", x2)
+  // rectangle <= interface{}
+	// square <= interface{}
+	fmt.Printf("sumArea_Lookup(r, s): %d \n", x2)
 	x3 := sumArea_Lookup(r, c)
-	fmt.Printf("%d \n", x3)
+  // rectangle <= interface{}
+	// circle <= interface{}
+  fmt.Printf("sumArea_Lookup(r, c): %d \n", x3)
 
 	// task 3
 	x4 := sumAreaVariant_Lookup(s, s)
@@ -300,23 +313,27 @@ func sumAreaScaleBefore_Dict(n int, x, y shapeExt_Value) int {
 
 // expanded with circle example (task 2)
 // expanded with demonstration of type assertions (task 3)
+
 func test_Dict() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("test_Dict \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	var c circle = circle{3}
 
 	x1 := area_Rec(r) + area_Sq(s) + area_Circle(c)
-	fmt.Printf("%d \n", x1)
+	fmt.Printf("Sum of all areas: %d \n", x1)
 
 	x2 := sumArea(r, s)
-	fmt.Printf("%d \n", x2)
+	fmt.Printf("sumArea: %d \n", x2)
 
 	x3 := sumArea(r, c)
-	fmt.Printf("%d \n", x3)
+	fmt.Printf("sumArea: %d \n", x3)
 
 	pt := &r
 	x4 := area_Rec(*pt)
-	fmt.Printf("%d \n", x4)
+  fmt.Printf("area_Rec: %d \n", x4)
 
 	area_Rec_Wrapper := func(v interface{}) int {
 		return area_Rec(v.(rectangle))
@@ -326,19 +343,22 @@ func test_Dict() {
 		return area_Sq(v.(square))
 	}
 
+	// new shape example (task 2)
 	area_Circle_Wrapper := func(v interface{}) int {
 		return area_Circle(v.(circle))
 	}
 
 	rDictShape := shape_Value{r, area_Rec_Wrapper}
 	sDictShape := shape_Value{s, area_Sq_Wrapper}
+
+	// new shape example (task 2)
 	cDictShape := shape_Value{c, area_Circle_Wrapper}
 
 	x5 := sumArea_Dict(rDictShape, sDictShape)
-	fmt.Printf("%d \n", x5)
+	fmt.Printf("sumArea_Dict: %d \n", x5)
 
 	x6 := sumArea_Dict(rDictShape, cDictShape)
-	fmt.Printf("%d \n", x6)
+	fmt.Printf("sumArea_Dict: %d \n", x6)
 
 	area_RecPtr_Wrapper := func(v interface{}) int {
 		return area_RecPtr(v.(*rectangle))
@@ -348,6 +368,7 @@ func test_Dict() {
 		return area_SqPtr(v.(*square))
 	}
 
+	// new shape example (task 2)
 	area_CirclePtr_Wrapper := func(v interface{}) int {
 		return area_CirclePtr(v.(*circle))
 	}
@@ -360,6 +381,7 @@ func test_Dict() {
 		scale_SqPtr(v.(*square), x)
 	}
 
+	// new shape example (task 2)
 	scale_CirclePtr_Wrapper := func(v interface{}, x int) {
 		scale_CirclePtr(v.(*circle), x)
 	}
@@ -369,28 +391,30 @@ func test_Dict() {
 	cDictShapeExt := shapeExt_Value{&c, area_CirclePtr_Wrapper, scale_CirclePtr_Wrapper}
 
 	x7 := sumAreaScaleBefore_Dict(3, rDictShapeExt, sDictShapeExt)
-	fmt.Printf("%d \n", x7)
+	fmt.Printf("sumAreaScaleBefore_Dict w/ square: %d \n", x7)
 
 	x8 := sumAreaScaleBefore_Dict(3, rDictShapeExt, cDictShapeExt)
-	fmt.Printf("%d \n", x8)
+	fmt.Printf("sumAreaScaleBefore_Dict w/ circle: %d \n", x8)
 
 	x9 := sumArea_Dict(fromShapeExtToShape(rDictShapeExt), fromShapeExtToShape(sDictShapeExt))
-	fmt.Printf("%d \n", x9)
+	fmt.Printf("sumArea_Dict w/ square: %d \n", x9)
 
 	x10 := sumArea_Dict(fromShapeExtToShape(rDictShapeExt), fromShapeExtToShape(cDictShapeExt))
-	fmt.Printf("%d \n", x10)
+	fmt.Printf("sumArea_Dict w/ circle: %d \n", x10)
 
 	// task 3, to test type check with DT
 	x11 := sumAreaVariant_Dict(rDictShape, sDictShape)
-	fmt.Printf("%d \n", x11)
+  fmt.Printf("sumAreaVariant_Dict w/ square: %d \n", x11)
 
 	x12 := sumAreaVariant_Dict(sDictShape, rDictShape)
-	fmt.Printf("%d \n", x12) // should fail
+	fmt.Printf("sumAreaVariant_Dict w/ rectangle: %d \n", x12) // should fail
 }
 
 func measureTime(fn func()) time.Duration {
 	start := time.Now()
-	fn()
+	for i := 0; i < 1000000; i++ {
+		fn()
+	}
 	return time.Since(start)
 }
 
@@ -406,13 +430,19 @@ func iterationsDT(iterations int, rDictShape, sDictShape shape_Value) {
 	}
 }
 
+func measureTime(fn func()) time.Duration {
+	start := time.Now()
+	fn()
+	return time.Since(start)
+}
+
 func main() {
 
-	//test()
+	test()
 	test_Lookup()
 	test_Dict()
-	//testNewShape()
-	//testSumAreaVariant()
+	testNewShape()
+	testSumAreaVariant()
 	testTypeBound()
 
 	var r rectangle = rectangle{1, 2}
@@ -436,6 +466,29 @@ func main() {
 	sDictShape := shape_Value{s, area_Sq_Wrapper}
 
 	dtTime := measureTime(func() { iterationsDT(1000000000, rDictShape, sDictShape) })
+	fmt.Printf("dtTime: %v\n", dtTime)
+
+	var r rectangle = rectangle{1, 2}
+	var s square = square{3}
+
+	/***** Measuring normal runtime calculation *****/
+	rtTime := measureTime(func() { iterationsRT(1000, r, s) })
+	fmt.Printf("rtTime: %v\n", rtTime)
+
+	/***** Measuring Dictionary calculation *****/
+	area_Rec_Wrapper := func(v interface{}) int {
+		return area_Rec(v.(rectangle))
+	}
+
+	area_Sq_Wrapper := func(v interface{}) int {
+		return area_Sq(v.(square))
+	}
+
+	//Directory Instances
+	rDictShape := shape_Value{r, area_Rec_Wrapper}
+	sDictShape := shape_Value{s, area_Sq_Wrapper}
+
+	dtTime := measureTime(func() { iterationsDT(1000, rDictShape, sDictShape) })
 	fmt.Printf("dtTime: %v\n", dtTime)
 
 }
