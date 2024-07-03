@@ -29,7 +29,8 @@ func measureTime(fn func()) time.Duration {
 }
 ```
 The results were as follows:
-![[task1.png]]
+
+![task1](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/65ed4f4d-ee6d-4ad1-bee6-bd04f440222f)
 
 ---
 
@@ -63,7 +64,8 @@ func scale_CirclePtr(c *circle, x int) {
 ```
 As such we also expanded the functions ```area_Lookup``` and the corresponding test functions.
 The tests yields following results:
-![[task2 2.png]]
+
+![task2](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/cff1f4c1-db23-466f-8618-bed08cf3cb25)
 
 ---
 
@@ -81,7 +83,8 @@ func sumAreaVariant(x, y shape) int {
 ```
 
 The expanded test functions yield the following results:
-![[task3.png]]
+
+![task3](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/130cefe4-e7f6-4574-98f1-5f0cba065cbe)
 
 ---
 
@@ -121,6 +124,7 @@ func (c circle) show() string {
 ```
 
 The added tests yield the following results:
-![[task4.png]]
+
+![task4](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/1f5a4d80-5206-42d2-9ada-54e97cac2f21)
 
 ---
