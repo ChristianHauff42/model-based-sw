@@ -1,5 +1,5 @@
 # P1 Translating methods, interfaces and structural subtyping
-##### by Josiah Heinen (61728), Vasiliki Konstanti (76282), Christian (55313)
+##### by Josiah Heinen (61728), Vasiliki Konstanti (76282), Christian Hauff (55313)
 
 ---
 
