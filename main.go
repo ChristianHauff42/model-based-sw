@@ -4,6 +4,7 @@ import (
     "fmt"
     "math"
     "time"
+    "strconv"
 )
 
 // task 4
@@ -80,17 +81,17 @@ type shapeExt interface {
 
 // task 4
 func (r rectangle) show() string {
-    return fmt.Sprintf("Rectangle(%d, %d)", r.length, r.width)
+    return "Rectangle(" + strconv.Itoa(r.length) + ", " + strconv.Itoa(r.width) + ")"
 }
 
 // task 4
 func (s square) show() string {
-    return fmt.Sprintf("Square(%d)", s.length)
+    return "Square(" + strconv.Itoa(s.length) + ")"
 }
 
 // task 4
 func (c circle) show() string {
-    return fmt.Sprintf("Circle(%d)", c.radius)
+    return "Circle(" + strconv.Itoa(c.radius) + ")"
 }
 
 func sumArea(x, y shape) int {
@@ -124,6 +125,9 @@ func testSumAreaVariant() {
 
 // tests to demonstrate generic node structure
 func testTypeBound() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("testTypeBound \n")
+    fmt.Printf("---------- \n")
     n1 := &node[rectangle]{val: rectangle{length: 2, width: 3}}
     n2 := &node[rectangle]{val: rectangle{length: 4, width: 5}}
     n1.next = n2
@@ -433,11 +437,11 @@ func measureTime(fn func()) time.Duration {
 
 func main() {
 
-    test()
+    //test()
     test_Lookup()
     test_Dict()
     testNewShape()
-    testSumAreaVariant()
+    //testSumAreaVariant()
     testTypeBound()
 
     var r rectangle = rectangle{1, 2}
