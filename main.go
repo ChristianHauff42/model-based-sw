@@ -390,9 +390,7 @@ func test_Dict() {
 
 func measureTime(fn func()) time.Duration {
 	start := time.Now()
-	for i := 0; i < 1000000; i++ {
-		fn()
-	}
+	fn()
 	return time.Since(start)
 }
 
@@ -421,7 +419,7 @@ func main() {
 	var s square = square{3}
 
 	/***** Measuring normal runtime calculation *****/
-	rtTime := measureTime(func() { iterationsRT(1000, r, s) })
+	rtTime := measureTime(func() { iterationsRT(1000000000, r, s) })
 	fmt.Printf("rtTime: %v\n", rtTime)
 
 	/***** Measuring Dictionary calculation *****/
@@ -437,7 +435,7 @@ func main() {
 	rDictShape := shape_Value{r, area_Rec_Wrapper}
 	sDictShape := shape_Value{s, area_Sq_Wrapper}
 
-	dtTime := measureTime(func() { iterationsDT(1000, rDictShape, sDictShape) })
+	dtTime := measureTime(func() { iterationsDT(1000000000, rDictShape, sDictShape) })
 	fmt.Printf("dtTime: %v\n", dtTime)
 
 }
