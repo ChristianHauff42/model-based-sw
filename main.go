@@ -67,31 +67,37 @@ func sumAreaScaleBefore(n int, x, y shapeExt) int {
 }
 
 func test() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("test \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	x1 := r.area() + s.area()
-	fmt.Printf("%d \n", x1)
+    fmt.Printf("sum of all areas: %d \n", x1)
 	x2 := sumArea(r, s)
-	fmt.Printf("%d \n", x2)
+    fmt.Printf("sumArea: %d \n", x2)
 	pt := &r
 	x3 := pt.area()
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("pt.area: %d \n", x3)
 	x4 := sumAreaScaleBefore(3, &r, &s)
-	fmt.Printf("%d \n", x4)
+    fmt.Printf("sumAreaScaleBefore: %d \n", x4)
 }
 
 func testNewShape() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("testNewShape \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var c circle = circle{3}
 	x1 := r.area() + c.area()
-	fmt.Printf("%d \n", x1)
+    fmt.Printf("Sum of rectangle and circle: %d \n", x1)
 	x2 := sumArea(r, c)
-	fmt.Printf("%d \n", x2)
+    fmt.Printf("sumArea: %d \n", x2)
 	pt := &r
 	x3 := pt.area()
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("pt.area: %d \n", x3)
 	x4 := sumAreaScaleBefore(3, &r, &c)
-	fmt.Printf("%d \n", x4)
+    fmt.Printf("sumAreaScaleBefore: %d \n", x4)
 }
 
 // Introducing unique function names for overloaded methods
@@ -161,19 +167,22 @@ func sumArea_Lookup(x, y interface{}) int {
 
 // expanded with circle example (task 2)
 func test_Lookup() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("test_Lookup \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	var c circle = circle{3}
 	x1 := area_Rec(r) + area_Sq(s) + area_Circle(c)
-	fmt.Printf("%d \n", x1)
+    fmt.Printf("Sum of all areas: %d \n", x1)
 	x2 := sumArea_Lookup(r, s)
 	// rectangle <= interface{}
 	// square <= interface{}
 	x3 := sumArea_Lookup(r, c)
 	// rectangle <= interface{}
 	// circle <= interface{}
-	fmt.Printf("%d \n", x2)
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("sumArea_Lookup(r, s): %d \n", x2)
+	fmt.Printf("sumArea_Lookup(r, c):%d \n", x3)
 }
 
 // Dictionary translation
@@ -206,20 +215,23 @@ func sumAreaScaleBefore_Dict(n int, x, y shapeExt_Value) int {
 
 // expanded with circle example (task 2)
 func test_Dict() {
+    fmt.Printf("---------- \n")
+    fmt.Printf("test_Dict \n")
+    fmt.Printf("---------- \n")
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
 	var c circle = circle{3}
 
 	// 1. Plain method calls
 	x1 := area_Rec(r) + area_Sq(s) + area_Circle(c)
-	fmt.Printf("%d \n", x1)
+	fmt.Printf("Sum of all areas: %d \n", x1)
 	x2 := sumArea(r, s)
 	x3 := sumArea(r, c)
-	fmt.Printf("%d \n", x2)
-	fmt.Printf("%d \n", x3)
+    fmt.Printf("sumArea: %d \n", x2)
+    fmt.Printf("sumArea: %d \n", x3)
 	pt := &r
 	x4 := area_Rec(*pt)
-	fmt.Printf("%d \n", x4)
+	fmt.Printf("area_Rec %d \n", x4)
 
 	area_Rec_Wrapper := func(v interface{}) int {
 		return area_Rec(v.(rectangle))
@@ -241,8 +253,8 @@ func test_Dict() {
 
 	x5 := sumArea_Dict(rDictShape, sDictShape)
 	x6 := sumArea_Dict(rDictShape, cDictShape)
-	fmt.Printf("%d \n", x5)
-	fmt.Printf("%d \n", x6)
+    fmt.Printf("sumArea_Dict: %d \n", x5)
+    fmt.Printf("sumArea_Dict: %d \n", x6)
 
 	area_RecPtr_Wrapper := func(v interface{}) int {
 		return area_RecPtr(v.(*rectangle))
@@ -279,14 +291,14 @@ func test_Dict() {
 	x7 := sumAreaScaleBefore_Dict(3, rDictShapeExt, sDictShapeExt)
 	x8 := sumAreaScaleBefore_Dict(3, rDictShapeExt, cDictShapeExt)
 
-	fmt.Printf("%d \n", x7)
-	fmt.Printf("%d \n", x8)
+    fmt.Printf("sumAreaScaleBefore_Dict w/ square: %d \n", x7)
+    fmt.Printf("sumAreaScaleBefore_Dict w/ circle: %d \n", x8)
 
 	x9 := sumArea_Dict(fromShapeExtToShape(rDictShapeExt), fromShapeExtToShape(sDictShapeExt))
 	x10 := sumArea_Dict(fromShapeExtToShape(rDictShapeExt), fromShapeExtToShape(cDictShapeExt))
 
-	fmt.Printf("%d \n", x9)
-	fmt.Printf("%d \n", x10)
+    fmt.Printf("sumArea_Dict w/ square: %d \n", x9)
+    fmt.Printf("sumArea_Dict w/ circle: %d \n", x10)
 }
 
 func measureTime(fn func()) time.Duration {
@@ -311,10 +323,10 @@ func iterationsDT(iterations int, rDictShape, sDictShape shape_Value) {
 
 func main() {
 
-	//test()
-	//testNewShape()
-	//test_Lookup()
-	//test_Dict()
+	test()
+	testNewShape()
+	test_Lookup()
+	test_Dict()
 
 	var r rectangle = rectangle{1, 2}
 	var s square = square{3}
