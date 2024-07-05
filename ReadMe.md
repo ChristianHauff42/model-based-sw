@@ -32,7 +32,10 @@ The results were as follows:
 
 ![task1](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/65ed4f4d-ee6d-4ad1-bee6-bd04f440222f)
 
+From the results we can see that the run-time performance of RT is better than the run-time performance of DT.
+
 ---
+
 
 ### 2. Apply the RT and DT approach to one further example of your own choice.
 
@@ -63,14 +66,17 @@ func scale_CirclePtr(c *circle, x int) {
 }
 ```
 As such we also expanded the functions ```area_Lookup``` and the corresponding test functions.
-The tests yields following results:
+To illustrate the newly implemented shape and the usage of RT and DT with it, we have implemented a new test function
+```testNewShape```.  The tests yields following results:
 
 ![task2](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/cff1f4c1-db23-466f-8618-bed08cf3cb25)
 
 ---
 
 ### 3. Extend RT and DT to deal with type assertions.
-We added type assertions to the functions ```sumAreaVariant```, ```sumAreaVariant_Lookup``` and ```sumAreaVariant_Dict```:
+First we added the new variant functions to the code base.
+We then added type assertions to the functions ```sumAreaVariant```, ```sumAreaVariant_Lookup``` and ```sumAreaVariant_Dict```:
+
 ```
 func sumAreaVariant(x, y shape) int {
     z, ok := y.(square)
@@ -87,6 +93,15 @@ The expanded test functions yield the following results:
 ![task3](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/130cefe4-e7f6-4574-98f1-5f0cba065cbe)
 
 ---
+
+To illustrate the new functionality we added a new test function ```testSumAreaVariant```.
+In this function we have also added test cases that should fail due to the type assertions that occur in the function ```sumAreaVariant```.
+
+For example the following code should fail (and it does as seen in the console output) because of the type assertion. A rectangle can not be asserted into a square:
+```
+fmt.Printf("%d \n", sumAreaVariant(square{1}, rectangle{1, 2})) // should fail
+```
+
 
 ### 4. Extend RT and DT to deal with type bounds.
 We added the following extensions:
@@ -126,5 +141,9 @@ func (c circle) show() string {
 The added tests yield the following results:
 
 ![task4](https://github.com/ChristianHauff42/model-based-sw/assets/102160452/1f5a4d80-5206-42d2-9ada-54e97cac2f21)
+
+To illustrate the implemented extension with type bounds, we wrote the new test function ```testTypeBound```.
+We can see that the function ```showNode``` is called with one generic type which makes it type bound.
+When creating nodes in our test function we can see that we can only create and call the nodes bound by one given type.
 
 ---
